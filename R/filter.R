@@ -1,11 +1,3 @@
-fixed_grep <- function(field, pattern){
-  grepl(x = field, pattern = pattern, fixed = TRUE, useBytes = TRUE)
-}
-
-fast_grep <- function(field, pattern){
-  grepl(x = field, pattern = pattern, useBytes = TRUE, perl = TRUE)
-}
-
 #Is it an app pageview?
 is_app_pageview <- function(x){
   is_app <- fixed_grep(x$user_agent, "WikipediaApp")
