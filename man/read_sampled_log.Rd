@@ -20,4 +20,7 @@ read a sampled log file identified with \code{\link{get_files}}.
 The sampled logs are returned as a data.frame with 16 columns - see
 the "Value" documentation.
 }
+\seealso{
+\code{\link{to_pageviews}}, for filtering the output
+}
 
