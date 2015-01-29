@@ -15,8 +15,17 @@ std::string extract_origin(std::string x_forwarded_for){
   }
   return x_forwarded_for;
 }
+
 // [[Rcpp::export]]
 std::vector < std::string > normalise_ips(std::vector < std::string > ip_addresses,
                                           std::vector < std::string > x_forwarded_fors){
-   
+  if(ip_addresses.size() != x_forwarded_fors.size()){
+    throw std::range_error("The two input vectors must be the same length");
+  }
+  for(int i = 0; i < input_length; i++){
+    if(x_forwarded_fors[i] != "-"){
+      ip_addresses[i] = extract_origin(x_forwarded_fors[i]);
+    }
+  }
+  return ip_addresses;
 }
