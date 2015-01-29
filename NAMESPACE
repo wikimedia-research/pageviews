@@ -3,6 +3,7 @@
 export(extract_project)
 export(extract_referers)
 export(get_files)
+export(identify_access_method)
 export(normalise_ips)
 export(read_sampled_log)
 export(to_pageviews)

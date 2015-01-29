@@ -38,3 +38,20 @@ to_pageviews <- function(data){
   data <- rbind(data[!is_api,], is_app_pageview(data[is_api,]))
   return(data)
 }
+
+#'@title identify the access method associated with a request
+#'@description identify whether the request is via desktop, the mobile web
+#'or the mobile app.
+#'
+#'@param urls a vector of URLs from \code{\link{read_sampled_log}}.
+#'
+#'@export
+identify_access_method <- function(urls){
+  output <- character(length(urls))
+  is_mobile <- fast_grep(urls, "\\.(m|mobile|wap|zero)\\.")
+  is_app <- fixed_grep(urls, "api.php")
+  output[is_mobile] <- "mobile web"
+  output[is_app] <- "mobile app"
+  output[output == ""] <- "desktop"
+  return(output)
+}
