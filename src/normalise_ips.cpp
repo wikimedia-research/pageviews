@@ -5,10 +5,10 @@ std::string extract_origin(std::string x_forwarded_for){
   std::string output;
   size_t comma_loc = x_forwarded_for.find_last_of(",");
   if(comma_loc != std::string::npos){
-    std::string holding = x_forwarded_for.substr(comma_loc);
+    std::string holding = x_forwarded_for.substr(comma_loc+1);
     size_t ip_id_loc = holding.find(".:");
     if(ip_id_loc == std::string::npos){
-      x_forwarded_for = extract_origin(x_forwarded_for.substr(0,comma_loc-1));
+      x_forwarded_for = extract_origin(x_forwarded_for.substr(0,comma_loc));
     } else {
       x_forwarded_for = holding;
     }
