@@ -3,15 +3,15 @@
 #'in log lines, extracting high-level names (for example, "Google")
 #'rather than inconsistently-fragmented URLs.
 #'
-#'@param data a data.frame outputted by \code{\link{read_sampled_log}}.
+#'@param referers a vector of referers
 #'
-#'@return a data.frame matching the input in structure, but with normalised referers.
+#'@return a vector of normalised referers
 #'
-#'@importFrom urltools url_decode domain
+#'@importFrom urltools domain
 #'@export
-extract_referers <- function(data){
-  holding <- domain(url_decode(data$referer))
-  referers <- character(nrow(data))
+extract_referers <- function(referers){
+  holding <- tolower(domain(referers))
+  referers <- character(length(holding))
   referers[holding == ""] <- "None"
   referers[fast_grep(holding, "\\.wik(i|t).*\\.org$")] <- "Internal"
   referers[fixed_grep(holding, "google.")] <- "Google"
@@ -24,4 +24,20 @@ extract_referers <- function(data){
   referers[referers == ""] <- "Other"
   data$referer <- referers
   return(data)
+}
+
+#'@title extract the project from Wikipedia URLs
+#'@description take a vector of wikimedia URLs and extract the language or project variant,
+#'along with the project class.
+#'
+#'@param urls a vector of URLs
+#'
+#'@return a vector of extracted projects, in the form of project_variant.project_class.
+#'
+#'@export
+extract_project <- function(urls){
+  hosts <- tolower(domain(urls))
+  hosts <- gsub(x = hosts, pattern = "\\.org$", perl = TRUE, useBytes = TRUE, replacement = "")
+  hosts <- gsub(x = hosts, pattern = "\\.(m|wap|mobile|zero)\\.", perl = TRUE, useBytes = TRUE, replacement = "")
+  return(hosts)
 }

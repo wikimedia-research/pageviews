@@ -4,13 +4,13 @@
 \alias{extract_referers}
 \title{normalise and extract referers}
 \usage{
-extract_referers(data)
+extract_referers(referers)
 }
 \arguments{
-\item{data}{a data.frame outputted by \code{\link{read_sampled_log}}.}
+\item{referers}{a vector of referers}
 }
 \value{
-a data.frame matching the input in structure, but with normalised referers.
+a vector of normalised referers
 }
 \description{
 decodes, simplifies and summarises referers

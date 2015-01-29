@@ -5,6 +5,21 @@
 
 using namespace Rcpp;
 
+// timesTwo
+int timesTwo(int x);
+RcppExport SEXP pageviews_timesTwo(SEXP xSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< int >::type x(xSEXP );
+        int __result = timesTwo(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // normalise_ips
 std::vector < std::string > normalise_ips(std::vector < std::string > ip_addresses, std::vector < std::string > x_forwarded_fors);
 RcppExport SEXP pageviews_normalise_ips(SEXP ip_addressesSEXP, SEXP x_forwarded_forsSEXP) {

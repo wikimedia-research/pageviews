@@ -41,6 +41,7 @@ get_files <- function(earliest = NULL, latest = NULL){
 #'"lang" and "x_analytics".
 #'
 #'@seealso \code{\link{to_pageviews}}, for filtering the output
+#'@importFrom urltools url_decode
 #'@export
 read_sampled_log <- function(file){
   output_file <- tempfile()
@@ -54,6 +55,8 @@ read_sampled_log <- function(file){
                                    "mime_type", "referer",
                                    "x_forwarded", "user_agent",
                                    "lang", "x_analytics"))
+  data$url <- url_decode(data$url)
+  data$referer <- url_decode(data$referer)
   file.remove(output_file)
   return(data)
 }
