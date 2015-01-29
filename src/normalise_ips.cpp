@@ -22,7 +22,7 @@ std::vector < std::string > normalise_ips(std::vector < std::string > ip_address
   if(ip_addresses.size() != x_forwarded_fors.size()){
     throw std::range_error("The two input vectors must be the same length");
   }
-  for(int i = 0; i < input_length; i++){
+  for(int i = 0; i < ip_addresses.size(); i++){
     if(x_forwarded_fors[i] != "-"){
       ip_addresses[i] = extract_origin(x_forwarded_fors[i]);
     }
