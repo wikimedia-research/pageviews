@@ -26,15 +26,15 @@ to_pageviews <- function(data){
                                      "text/html; charset=UTF-8",
                                      "application/json; charset=utf-8"),]
   data <- data[fast_grep(data$status_code, "(200|304)"),]
-  data <- data[fast_grepl(data$url, paste0("((commons|meta|incubator|species)\\.((m|mobile|wap|zero)\\.)?wikimedia|",
+  data <- data[fast_grep(data$url, paste0("((commons|meta|incubator|species)\\.((m|mobile|wap|zero)\\.)?wikimedia|",
                                            "(wik(ibooks|idata|inews|ipedia|iquote|isource|tionary|iversity|ivoyage)))",
                                            "\\.org")),]
-  data <- data[fast_grepl(data$url, paste0("((/sr(-(ec|el))?|/w(iki)?/|/zh(-(cn|",
+  data <- data[fast_grep(data$url, paste0("((/sr(-(ec|el))?|/w(iki)?/|/zh(-(cn|",
                                            "hans|hant|hk|mo|my|sg|tw))?)/|\\?((cur",
                                            "|old)id|title)=)")),]
-  data <- data[!fast_grepl(data$url, paste0("(BannerRandom|CentralAutoLogin|MobileEditor",
+  data <- data[!fast_grep(data$url, paste0("(BannerRandom|CentralAutoLogin|MobileEditor",
                                             "|Undefined|UserLogin|ZeroRatedMobileAccess)")),]
-  is_api <- fixed_grepl(data$url, "api.php")
+  is_api <- fixed_grep(data$url, "api.php")
   data <- rbind(data[!is_api,], is_app_pageview(data[is_api,]))
   return(data)
 }
