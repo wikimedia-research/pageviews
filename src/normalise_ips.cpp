@@ -16,6 +16,20 @@ std::string extract_origin(std::string x_forwarded_for){
   return x_forwarded_for;
 }
 
+//'@title normalise IP addresses for geolocation
+//'@description \code{normalise_ips} takes IP addresses and x_forwarded_for
+//'values and, in the event that x_forwarded_for is non-null, attempts to
+//'extract the "real" IP closest to the client.
+//'
+//'@param ip_addresses a vector of IP addresses
+//'
+//'@param x_forwarded_fors an equally-sized vector of XFF values, retrieved
+//'from \code{\link{read_sampled_log}}.
+//'
+//'@return a vector of IP addresses, incorporating the XFF header value
+//'where appropriate
+//'
+//'@export
 // [[Rcpp::export]]
 std::vector < std::string > normalise_ips(std::vector < std::string > ip_addresses,
                                           std::vector < std::string > x_forwarded_fors){
