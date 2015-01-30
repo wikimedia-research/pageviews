@@ -55,3 +55,41 @@ identify_access_method <- function(urls){
   output[output == ""] <- "desktop"
   return(output)
 }
+
+#'@title check whether a request is from a spider
+#'@description consumes a vector of user agents and checks whether each one
+#'matches the ua-parser spider definitions. In addition, it looks for Wikimedia-specific
+#'spiders that aren't included in the (generalised) spider list.
+#'
+#'@param user_agents a vector of user agents, which can be retrieved with
+#'\code{\link{read_sampled_log}}.
+#'
+#'@return a boolean vector identifying whether the user agent at the equivalent indices
+#'in the input vector matched that of a spider/web crawler or not.
+#'
+#'@export
+is_spider <- function(user_agents){
+  is_mobile_spider <- fast_grep(user_agents,
+                                paste0("((Bot|Yeti)-Mobile|YRSpider|AdsBot-Google-Mobile|DoCoMo|(jump|google|Wukong)bot",
+                                       "YahooSeeker)"))
+  is_generic_spider <- fast_grep(user_agents,
+                                 paste0("(bot|zao|borg|DBot|oegp|silk|Xenu|zeal|^NING|CCBot|crawl|htdig|lycos|slurp|",
+                                        "teoma|voila|yahoo|Sogou|CiBra|Nutch|^Java/|^JNLP/|Daumoa|Genieo|ichiro|larbin|",
+                                        "pompos|Scrapy|snappy|speedy|spider|msnbot|msrbot|vortex|^vortex|crawler|",
+                                        "favicon|indexer|Riddler|scooter|scraper|scrubby|WhatWeb|WinHTTP|bingbot|",
+                                        "openbot|gigabot|furlbot|polybot|seekbot|^voyager|archiver|Icarus6j|mogimogi|",
+                                        "Netvibes|blitzbot|altavista|charlotte|findlinks|Retreiver|TLSProber|WordPress|",
+                                        "SeznamBot|ProoXiBot|wsr\\-agent|Squrl Java|EtaoSpider|PaperLiBot|SputnikBot|",
+                                        "A6\\-Indexer|netresearch|searchsight|baiduspider|YisouSpider|ICC\\-Crawler|",
+                                        "http%20client|Python-urllib|dataparksearch|converacrawler|Screaming Frog|",
+                                        "AppEngine-Google|YahooCacheSystem|fast\\-webcrawler|Sogou Pic Spider|",
+                                        "semanticdiscovery|Innovazion Crawler|facebookexternalhit|",
+                                        "Google.*/\\+/web/snippet|Google-HTTP-Java-Client)"))
+  is_wikimedia_spider <- fast_grep(user_agents,
+                                   paste0("(goo wikipedia|MediaWikiCrawler-Google|wikiwix-bot)"))
+  return(is_mobile_spider | is_generic_spider | is_wikimedia_spider)
+}
+
+is_automata <- function(user_agents){
+  
+}

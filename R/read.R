@@ -16,7 +16,7 @@
 #'@importFrom mwutils to_mediawiki
 #'@export
 get_files <- function(earliest = NULL, latest = NULL){
-  files <- list.files("/a/squid/archive/sampled/", full.names= TRUE, pattern = "gz$")
+  files <- list.files("/a/squid/archive/sampled", full.names= TRUE, pattern = "gz$")
   if(!is.null(earliest)){
     file_dates <- as.numeric(substring(files,48,55))
     if(!is.null(latest)){
