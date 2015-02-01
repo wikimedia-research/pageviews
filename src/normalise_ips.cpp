@@ -1,19 +1,47 @@
 #include <Rcpp.h>
+#include <iostream>
+#include <sstream>
 using namespace Rcpp;
 
-std::string extract_origin(std::string x_forwarded_for){
-  std::string output;
-  size_t comma_loc = x_forwarded_for.find_last_of(",");
-  if(comma_loc != std::string::npos){
-    std::string holding = x_forwarded_for.substr(comma_loc+1);
-    size_t ip_id_loc = holding.find(".:");
-    if(ip_id_loc == std::string::npos){
-      x_forwarded_for = extract_origin(x_forwarded_for.substr(0,comma_loc));
-    } else {
-      x_forwarded_for = holding;
+//Tokenize an XFF header.
+std::vector < std::string > tokenize(std::string xff){
+  xff.erase(remove_if(xff.begin(), xff.end(), isspace), xff.end());
+  std::vector < std::string > output;
+  std::string holding;
+  std::stringstream strm(xff);
+  while(strm.good()){
+    getline(strm, holding, ',');
+    output.push_back(holding);
+  }
+  return output;
+}
+
+//Check if a substring looks like a real IP
+bool is_real_ip(std::string possible_ip){
+  size_t ip_match = possible_ip.find_first_of(".:");
+  if(ip_match != std::string::npos){
+    return true;
+  }
+  return false;
+}
+
+//Combine the two! For each XFF, tokenize it and
+//check if it looks like a real IP. Return the first element
+//that does. If none do, return the first element.
+std::string extract_origin(std::string xff){
+  
+  std::vector < std::string > holding = tokenize(xff);
+  int hold_size = holding.size();
+  if(hold_size == 1){
+    return holding[0];
+  }
+  
+  for(int i = 0; i < hold_size; i++){
+    if(is_real_ip(holding[i])){
+      return holding[i];
     }
   }
-  return x_forwarded_for;
+  return holding.front();
 }
 
 //'@title normalise IP addresses for geolocation
