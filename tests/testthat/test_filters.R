@@ -7,11 +7,11 @@ test_that("Spiders are identified", {
               "Mozilla/5.0%20(compatible;%20Googlebot/2.1;%20+http://www.google.com/bot.html)",
               "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.3",
               "Opera/9.80%20(Windows%20NT%206.1;%20WOW64;%20Edition%20Campaign%2021)%20Presto/2.12.388%20Version/12.11")
-  spider_results <- is_spider(agents)
-  expect_true(spider_results[1])
-  expect_true(spider_results[2])
-  expect_false(spider_results[3])
-  expect_false(spider_results[4])
+  expect_that(is_spider(agents), equals(c(TRUE,TRUE,FALSE,FALSE)))
+})
+
+test_that("Automata are identified", {
+  
 })
 
 test_that("Pageview filtering works", {
@@ -25,4 +25,12 @@ test_that("Pageview filtering works", {
                              "1980181408", "6081840151", "784528561", "1715189647", "2004790804")
   expect_that(nrow(filtered_log), equals(35))
   expect_that(sum(as.numeric(filtered_log$sequence_no)), equals(sum(as.numeric(expected_sequence_nos))))
+})
+
+test_that("Automata filtering works", {
+  agents <- c("Python-urllib/2.7", "WordPress/3.2.1; http://www.greenshinto.com/wp",
+              "Mozilla/5.0 (compatible; publiclibraryarchive.org/1.0; +crawl@publiclibraryarchive.org)",
+              "WinHTTP Example/1.0", "BlackBerry8520/5.0.0.509 Profile/MIDP-2.1 Configuration/CLDC-1.1")
+  expect_that(is_spider(agents), equals(c(TRUE,TRUE,TRUE,TRUE,FALSE)))
+  
 })

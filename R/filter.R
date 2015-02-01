@@ -70,7 +70,7 @@ identify_access_method <- function(urls){
 #'@export
 is_spider <- function(user_agents){
   is_mobile_spider <- fast_grep(user_agents,
-                                paste0("((Bot|Yeti)-Mobile|YRSpider|AdsBot-Google-Mobile|DoCoMo|(jump|google|Wukong)bot",
+                                paste0("((Bot|Yeti)-Mobile|YRSpider|AdsBot-Google-Mobile|(jump|google|Wukong)bot",
                                        "YahooSeeker)"))
   is_generic_spider <- fast_grep(user_agents,
                                  paste0("(bot|zao|borg|DBot|oegp|silk|Xenu|zeal|^NING|CCBot|crawl|htdig|lycos|slurp|",
@@ -82,14 +82,18 @@ is_spider <- function(user_agents){
                                         "SeznamBot|ProoXiBot|wsr\\-agent|Squrl Java|EtaoSpider|PaperLiBot|SputnikBot|",
                                         "A6\\-Indexer|netresearch|searchsight|baiduspider|YisouSpider|ICC\\-Crawler|",
                                         "http%20client|Python-urllib|dataparksearch|converacrawler|Screaming Frog|",
-                                        "AppEngine-Google|YahooCacheSystem|fast\\-webcrawler|Sogou Pic Spider|",
-                                        "semanticdiscovery|Innovazion Crawler|facebookexternalhit|",
-                                        "Google.*/\\+/web/snippet|Google-HTTP-Java-Client)"))
+                                        "YahooCacheSystem|fast\\-webcrawler|Sogou Pic Spider|Spider Build|",
+                                        "semanticdiscovery|Innovazion Crawler|facebookexternalhit|BegunAdvertising|",
+                                        "redditbot|changedetection|pic scraper|",
+                                        "Google.*/\\+/web/snippet|Google-HTTP-Java-Client|crawler4j|results module)"))
   is_wikimedia_spider <- fast_grep(user_agents,
                                    paste0("(goo wikipedia|MediaWikiCrawler-Google|wikiwix-bot)"))
   return(is_mobile_spider | is_generic_spider | is_wikimedia_spider)
 }
 
 is_automata <- function(user_agents){
-  
+  automata <- fast_grep(user_agents,
+                        paste0("(AppEngine-Google|Pywikipediabot|GetWiki|Google-HTTP-Java-Client)"))
+  blank_automata <- fast_grep(user_agents,
+                              paste0("^((Java|WordPress)/|Python-urllib|WinHTTP|Pywikibot)"))
 }
