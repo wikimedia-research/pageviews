@@ -67,6 +67,9 @@ identify_access_method <- function(urls){
 #'@return a boolean vector identifying whether the user agent at the equivalent indices
 #'in the input vector matched that of a spider/web crawler or not.
 #'
+#'@seealso \code{\link{read_sampled_log}} for retrieving user agents, and
+#'\code{\link{is_automata}} for identifying non-crawler automata.
+#'
 #'@export
 is_spider <- function(user_agents){
   is_mobile_spider <- fast_grep(user_agents,
@@ -91,6 +94,23 @@ is_spider <- function(user_agents){
   return(is_mobile_spider | is_generic_spider | is_wikimedia_spider)
 }
 
+#'@title identify non-webcrawler automated traffic
+#'
+#'@description Not all automated traffic is from a webcrawler - much is from people running HTTP libraries
+#'in a particularly stupid, selfish and lazy fashion (if you're reading this and you've ever had a service
+#'making requests with the user agent "Twisted PageGetter": this means you). \code{is_automata} identifies
+#'this class of traffic.
+#'
+#'@param user_agents a vector of user agents, which can be retrieved with
+#'\code{\link{read_sampled_log}}.
+#'
+#'@return a boolean vector identifying whether the user agent at the equivalent indices
+#'in the input vector matched that of an automated service or not.
+#'
+#'@seealso \code{\link{read_sampled_log}} for retrieving user agents, and
+#'\code{\link{is_automata}} for identifying non-crawler automata.
+#'
+#'@export
 is_automata <- function(user_agents){
   automata <- fast_grep(user_agents,
                         paste0("(AppEngine-Google|Pywikipediabot|GetWiki|Google-HTTP-Java-Client)"))

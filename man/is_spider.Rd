@@ -19,4 +19,8 @@ consumes a vector of user agents and checks whether each one
 matches the ua-parser spider definitions. In addition, it looks for Wikimedia-specific
 spiders that aren't included in the (generalised) spider list.
 }
+\seealso{
+\code{\link{read_sampled_log}} for retrieving user agents, and
+\code{\link{is_automata}} for identifying non-crawler automata.
+}
 
