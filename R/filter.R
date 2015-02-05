@@ -17,6 +17,14 @@ is_app_pageview <- function(x){
 #'@return a data.frame with the same attributes as that of \code{\link{read_sampled_log}},
 #'but only containing "pageviews".
 #'
+#'@seealso \code{\link{read_sampled_log}}, for retrieving the
+#'sampled logs in the first place.
+#'@examples
+#'
+#'#Get the latest day's pageviews
+#'files <- get_files()
+#'data <- to_pageviews(read_sampled_log(files[length(files)]))
+#'
 #'@export
 to_pageviews <- function(data){
   data <- data[data$mime_type %in% c("text/html; charset=iso-8859-1",
@@ -41,9 +49,20 @@ to_pageviews <- function(data){
 
 #'@title identify the access method associated with a request
 #'@description identify whether the request is via desktop, the mobile web
-#'or the mobile app.
+#'or the mobile app. Assumes pageview filtering has been applied.
 #'
 #'@param urls a vector of URLs from \code{\link{read_sampled_log}}.
+#'
+#'@return a character vector containing "mobile web", "mobile app"
+#'or "desktop" for each input URL, as appropriate.
+#'
+#'@examples
+#'files <- get_files()
+#'pageviews <- to_pageviews(read_sampled_log(files[length(files)]))
+#'pageviews$access_method <- identify_access_method(pageviews$url)
+#'
+#'@seealso \code{\link{to_pageviews}} to filter to pageviews in
+#'the first place.
 #'
 #'@export
 identify_access_method <- function(urls){
