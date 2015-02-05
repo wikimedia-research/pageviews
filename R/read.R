@@ -64,3 +64,10 @@ read_sampled_log <- function(file){
   file.remove(output_file)
   return(data)
 }
+
+#'@export
+convert_timestamps <- function(x){
+  x <- iconv(x, to = "UTF-8")
+  x[nchar(x) > 19] <- substring(x[nchar(x) > 19],1,19)
+  return(strptime(x, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC"))
+}
