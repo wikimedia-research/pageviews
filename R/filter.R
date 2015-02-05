@@ -132,7 +132,7 @@ is_spider <- function(user_agents){
 #'@export
 is_automata <- function(user_agents){
   automata <- fast_grep(user_agents,
-                        paste0("(AppEngine-Google|Pywikipediabot|GetWiki|Google-HTTP-Java-Client)"))
+                        paste0("(AppEngine-Google|Pywiki(pedia)?bot|GetWiki|Google-HTTP-Java-Client)"))
   blank_automata <- fast_grep(user_agents,
-                              paste0("^((Java|WordPress)/|Python-urllib|WinHTTP|Pywikibot)"))
+                              paste0("^((Java|WordPress)/|Python-urllib|WinHTTP)"))
 }
