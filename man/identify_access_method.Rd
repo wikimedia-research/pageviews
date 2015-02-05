@@ -9,8 +9,21 @@ identify_access_method(urls)
 \arguments{
 \item{urls}{a vector of URLs from \code{\link{read_sampled_log}}.}
 }
+\value{
+a character vector containing "mobile web", "mobile app"
+or "desktop" for each input URL, as appropriate.
+}
 \description{
 identify whether the request is via desktop, the mobile web
-or the mobile app.
+or the mobile app. Assumes pageview filtering has been applied.
+}
+\examples{
+files <- get_files()
+pageviews <- to_pageviews(read_sampled_log(files[length(files)]))
+pageviews$access_method <- identify_access_method(pageviews$url)
+}
+\seealso{
+\code{\link{to_pageviews}} to filter to pageviews in
+the first place.
 }
 

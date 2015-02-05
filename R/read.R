@@ -1,3 +1,8 @@
+#Date substing
+parse_date <- function(date){
+  return(gsub("-","",date))
+}
+
 #'@title retrieve a vector of sampled log files
 #'@description Grab sampled log files to be piped into
 #'\code{\link{read_sampled_log}}. By default this retrieves all
@@ -13,16 +18,15 @@
 #'both arguments are set, the retrieved files will be those in that range.
 #'
 #'@return A vector of filenames that can be passed into \code{\link{read_sampled_log}}.
-#'@importFrom mwutils to_mediawiki
 #'@export
 get_files <- function(earliest = NULL, latest = NULL){
   files <- list.files("/a/squid/archive/sampled", full.names= TRUE, pattern = "gz$")
   if(!is.null(earliest)){
-    file_dates <- as.numeric(substring(files,48,55))
+    file_dates <- as.numeric(substring(files,47,55))
     if(!is.null(latest)){
-      files <- files[file_dates >= as.numeric(to_mediawiki(earliest)) & file_dates <= as.numeric(to_mediawiki(latest))]
+      files <- files[file_dates >= as.numeric(parse_date(earliest)) & file_dates <= as.numeric(parse_date(latest))]
     } else {
-      files <- files[file_dates >= as.numeric(to_mediawiki(earliest))]
+      files <- files[file_dates >= as.numeric(parse_date(earliest))]
     }
   }
   return(files)

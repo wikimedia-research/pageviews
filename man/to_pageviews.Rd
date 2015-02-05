@@ -19,4 +19,13 @@ with \code{\link{read_sampled_log}}, and filters it to those rows
 that meet the existing definition of "pageview", which is described
 \href{https://meta.wikimedia.org/wiki/Research:Page_view}{here}.
 }
+\examples{
+#Get the latest day's pageviews
+files <- get_files()
+data <- to_pageviews(read_sampled_log(files[length(files)]))
+}
+\seealso{
+\code{\link{read_sampled_log}}, for retrieving the
+sampled logs in the first place.
+}
 
