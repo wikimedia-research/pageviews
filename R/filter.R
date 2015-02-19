@@ -40,7 +40,7 @@ to_pageviews <- function(data){
                                            "(wik(ibooks|idata|inews|ipedia|iquote|isource|tionary|iversity|ivoyage)))",
                                            "\\.org")),]
   
-    data <- data[fast_grep(data$url, "(/sr(-(ec|el))?|\\?((cur|old)id|title)=|/w(iki)?/|/zh(-(cn|hans|hant|hk|mo|my|sg|tw))?/)"),]
+  data <- data[fast_grep(data$url, "(/sr(-(ec|el))?|\\?((cur|old)id|title)=|/w(iki)?/|/zh(-(cn|hans|hant|hk|mo|my|sg|tw))?/)"),]
   data <- data[!fast_grep(data$url, "(BannerRandom|CentralAutoLogin|MobileEditor|Undefined|UserLogin|ZeroRatedMobileAccess)"),]
   
   is_api <- fixed_grep(data$url, "api.php")
