@@ -16,15 +16,7 @@ test_that("Automata are identified", {
 
 test_that("Pageview filtering works", {
   filtered_log <- to_pageviews(sampled_log)
-  expected_sequence_nos <- c("1735133514", "814422943", "768158599", "806281329", "801147205", 
-                             "6231171200", "802067053", "6347723186", "6137838693", "743834974", 
-                             "1978180273", "761769385", "50191735", "51975344", "811262407", 
-                             "1775797617", "1953957685", "82395333", "65651878", "1947083892", 
-                             "37128616", "1989236246", "780996652", "326795064", "20074186", 
-                             "779919814", "55357042", "824217008", "1973711559", "108273794", 
-                             "1980181408", "6081840151", "784528561", "1715189647", "2004790804")
-  expect_that(nrow(filtered_log), equals(35))
-  expect_that(sum(as.numeric(filtered_log$sequence_no)), equals(sum(as.numeric(expected_sequence_nos))))
+  expect_that(nrow(filtered_log), equals(113))
 })
 
 test_that("Automata filtering works", {

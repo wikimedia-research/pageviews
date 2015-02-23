@@ -9,15 +9,11 @@ using namespace Rcpp;
 std::vector < std::string > normalise_ips(std::vector < std::string > ip_addresses, std::vector < std::string > x_forwarded_fors);
 RcppExport SEXP pageviews_normalise_ips(SEXP ip_addressesSEXP, SEXP x_forwarded_forsSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::vector < std::string > >::type ip_addresses(ip_addressesSEXP );
-        Rcpp::traits::input_parameter< std::vector < std::string > >::type x_forwarded_fors(x_forwarded_forsSEXP );
-        std::vector < std::string > __result = normalise_ips(ip_addresses, x_forwarded_fors);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type ip_addresses(ip_addressesSEXP);
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type x_forwarded_fors(x_forwarded_forsSEXP);
+    __result = Rcpp::wrap(normalise_ips(ip_addresses, x_forwarded_fors));
+    return __result;
 END_RCPP
 }
