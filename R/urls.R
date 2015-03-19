@@ -36,7 +36,7 @@ extract_referers <- function(referers){
 #'@export
 extract_project <- function(urls){
   hosts <- tolower(domain(urls))
-  hosts <- gsub(x = hosts, pattern = "\\.org$", perl = TRUE, useBytes = TRUE, replacement = "")
-  hosts <- gsub(x = hosts, pattern = "\\.(m|wap|mobile|zero)\\.", perl = TRUE, useBytes = TRUE, replacement = "")
+  hosts <- gsub(x = hosts, pattern = "(\\.org|http)$", perl = TRUE, useBytes = TRUE, replacement = "")
+  hosts <- gsub(x = hosts, pattern = "(?<=\\.)(m|wap|mobile|zero)\\.", perl = TRUE, useBytes = TRUE, replacement = "")
   return(hosts)
 }
