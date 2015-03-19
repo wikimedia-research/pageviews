@@ -1,7 +1,7 @@
 #Is it an app pageview?
 is_app_pageview <- function(x){
   is_app <- fixed_grep(x$user_agent, "WikipediaApp")
-  is_pv <- fixed_grep(x$user_agent, "sections=0")
+  is_pv <- fast_grep(x$url, "sections=(0|all)")
   return(x[is_app & is_pv,])
 }
 
