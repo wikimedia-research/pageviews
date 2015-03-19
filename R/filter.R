@@ -39,7 +39,7 @@ to_pageviews <- function(data){
   data <- data[fast_grep(data$url, paste0("((commons|meta|incubator|species)\\.((m|mobile|wap|zero)\\.)?wikimedia|",
                                            "(wik(ibooks|idata|inews|ipedia|iquote|isource|tionary|iversity|ivoyage)))",
                                            "\\.org")),]
-  
+  data <- data[!fixed_grep(data$url, pattern = "donate.wikimedia.org"),]
   data <- data[fast_grep(data$url, "(/sr(-(ec|el))?|\\?((cur|old)id|title)=|/w(iki)?/|/zh(-(cn|hans|hant|hk|mo|my|sg|tw))?/)"),]
   data <- data[!fast_grep(data$url, "(BannerRandom|CentralAutoLogin|MobileEditor|Undefined|UserLogin|ZeroRatedMobileAccess)"),]
   
