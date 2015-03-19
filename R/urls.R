@@ -10,7 +10,7 @@
 #'@importFrom urltools domain
 #'@export
 extract_referers <- function(referers){
-  holding <- tolower(domain(referers))
+  holding <- tolower(domain(iconv(referers, to = "UTF-8")))
   referers <- character(length(holding))
   referers[holding == ""] <- "None"
   referers[fast_grep(holding, "\\.wik(i|t).*\\.org$")] <- "Internal"
@@ -22,8 +22,7 @@ extract_referers <- function(referers){
   referers[fixed_grep(holding, "bing.")] <- "Bing"
   referers[fixed_grep(holding, "baidu.")] <- "Baidu"
   referers[referers == ""] <- "Other"
-  data$referer <- referers
-  return(data)
+  return(referers)
 }
 
 #'@title extract the project from Wikipedia URLs
