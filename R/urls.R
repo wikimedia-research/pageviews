@@ -38,5 +38,6 @@ extract_project <- function(urls){
   hosts <- tolower(domain(urls))
   hosts <- gsub(x = hosts, pattern = "(\\.org|http)$", perl = TRUE, useBytes = TRUE, replacement = "")
   hosts <- gsub(x = hosts, pattern = "(?<=\\.)(m|wap|mobile|zero)\\.", perl = TRUE, useBytes = TRUE, replacement = "")
+  hosts <- gsub(x = hosts, pattern = "www.", fixed = TRUE, useBytes = TRUE, replacement = "")
   return(hosts)
 }
