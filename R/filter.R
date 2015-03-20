@@ -1,8 +1,9 @@
 #Is it an app pageview?
 is_app_pageview <- function(x){
   is_app <- fixed_grep(x$user_agent, "WikipediaApp")
-  is_pv <- fast_grep(x$url, "sections=(0|all)")
-  return(x[is_app & is_pv,])
+  is_pv <- fixed_grep(x$url, "sections=0")
+  is_ios_pv <- (fixed_grep(x$url, "sections=all") & fixed_grep(x$url, "iPhone") & is_app)
+  return(x[(is_app & is_pv) | is_ios_pv,])
 }
 
 #'@title filter a sampled log file to pageviews
